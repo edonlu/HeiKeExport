@@ -1,0 +1,48 @@
+{
+    "manifest_version": 2,
+    "name": "HeiKeYunExport",
+    "version": "2.0.0",
+    "description": "把HeiKeYun离线下载的视频，导出到Aria2下载，速度还可以。作者博客：http://www.ywmt.bid/Blog/",
+	"author": "唐僧肉片",
+    "icons":
+    {
+        "16": "img/logo.png",
+        "48": "img/logo.png",
+        "128": "img/logo.png"
+    },
+    // 会一直常驻的后台JS或后台页面
+    "background":
+    {
+        "scripts": ["js/background.js"]
+    },
+    
+    "page_action":
+    {
+        "default_icon": "img/logo.png",
+        "default_title": "导出HeiKeYun到Aria2",
+        "default_popup": "popup.html"
+    },
+    // 需要直接注入页面的JS
+    "content_scripts": 
+    [
+        {
+            "matches": ["*://*.heikeyun.net/*", "*://*.09yy.cn/*"],
+			"js": ["js/jquery-3.3.1.min.js", "js/mzui.js", "js/myHeiKe.js", "js/toURL.js"],
+            "css": ["css/mzui.min.css"],
+            "run_at": "document_start",
+			"include_globs": ["*://*/MyYun.aspx", "*://*/PlayHistory.aspx", "*://*/HashList.aspx*", "*://*/GoodNew.aspx"]
+        }
+    ],
+    // 权限申请
+    "permissions":
+    [
+		"declarativeContent",
+        "notifications", // 通知
+        "webRequest", // web请求
+        "webRequestBlocking",
+        "storage", // 插件本地存储
+        "http://*/*" // 可以通过executeScript或者insertCSS访问的网站
+    ],
+    // 插件主页，这个很重要，不要浪费了这个免费广告位
+    "homepage_url": "http://www.ywmt.bid/Blog/"
+}
